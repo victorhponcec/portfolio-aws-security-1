@@ -22,7 +22,7 @@ resource "aws_vpc_security_group_ingress_rule" "web_allow_80" {
 #app
 resource "aws_vpc_security_group_ingress_rule" "web_app_allow_443" {
   security_group_id            = aws_security_group.web.id
-  referenced_security_group_id = aws_security_group.lba.id
+  referenced_security_group_id = aws_security_group.app.id
   from_port                    = 443
   to_port                      = 443
   ip_protocol                  = "tcp"

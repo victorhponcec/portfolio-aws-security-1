@@ -1,6 +1,6 @@
 #LB - Internet Facing
 resource "aws_lb" "lba" {
-  name               = "lba_internet"
+  name               = "lba-internet"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.lba.id]

@@ -21,7 +21,7 @@ resource "aws_autoscaling_group" "asg_1" {
   min_size             = 2
   health_check_type    = "EC2"
   termination_policies = ["OldestInstance"]
-  vpc_zone_identifier  = [aws_subnet.public_a_az1.id, aws_subnet.public_b_az2]
+  vpc_zone_identifier  = [aws_subnet.public_a_az1.id, aws_subnet.public_b_az2.id]
 
   launch_template {
     id      = aws_launch_template.web.id
