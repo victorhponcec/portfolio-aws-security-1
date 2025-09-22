@@ -3,7 +3,7 @@ provider "aws" {
   default_tags {
     tags = {
       Project = "Security"
-      Name     = "Victor-Ponce"
+      Name    = "Victor-Ponce"
     }
   }
 }
@@ -66,3 +66,6 @@ resource "aws_route_table_association" "public_az2" {
   subnet_id      = aws_subnet.public_b_az2.id
   route_table_id = aws_route_table.public_rtb.id
 }
+
+#to do: VPC Endpoints (PrivateLink) for Systems Manager | allow session manager to private subne
+#+rtb association
