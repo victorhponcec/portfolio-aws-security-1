@@ -131,3 +131,29 @@ resource "aws_vpc_security_group_ingress_rule" "db_allow_443" {
   to_port                      = 443
   ip_protocol                  = "tcp"
 }
+
+#SG SSM (allow app/web tier)
+resource "aws_security_group" "ssm" {
+  name        = "ssm"
+  description = "allow app traffic to ssm"
+  vpc_id      = aws_vpc.main.id
+}
+resource "aws_vpc_security_group_ingress_rule" "ssm_app_allow_443" {
+  security_group_id            = aws_security_group.ssm.id
+  referenced_security_group_id = aws_security_group.app.id
+  from_port                    = 443
+  to_port                      = 443
+  ip_protocol                  = "tcp"
+}
+resource "aws_vpc_security_group_ingress_rule" "ssm_web_allow_443" {
+  security_group_id            = aws_security_group.ssm.id
+  referenced_security_group_id = aws_security_group.web.id
+  from_port                    = 443
+  to_port                      = 443
+  ip_protocol                  = "tcp"
+}
+resource "aws_vpc_security_group_egress_rule" "ssm_egress_all" {
+  security_group_id = aws_security_group.ssm.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1"
+}

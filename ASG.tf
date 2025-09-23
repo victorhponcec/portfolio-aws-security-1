@@ -64,7 +64,7 @@ resource "aws_launch_template" "app" {
   instance_type = "t2.micro"
   #vpc_security_group_ids = [aws_security_group.web.id] #conficts with: network_interfaces.security_group
   network_interfaces {
-    associate_public_ip_address = true
+    associate_public_ip_address = false
     security_groups             = [aws_security_group.app.id]
   }
   iam_instance_profile {
@@ -83,7 +83,7 @@ resource "aws_autoscaling_group" "asg_2" {
   vpc_zone_identifier  = [aws_subnet.private_a_az1.id, aws_subnet.private_b_az2.id]
 
   launch_template {
-    id      = aws_launch_template.web.id
+    id      = aws_launch_template.app.id
     version = "$Latest"
   }
 
