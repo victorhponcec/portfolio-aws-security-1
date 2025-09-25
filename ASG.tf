@@ -68,7 +68,7 @@ resource "aws_launch_template" "app" {
     security_groups             = [aws_security_group.app.id]
   }
   iam_instance_profile {
-    name = aws_iam_instance_profile.ssm_profile.name
+    name = aws_iam_instance_profile.ssm_secrets_manager_profile.name
   }
   user_data = filebase64("user_data.sh")
 }
