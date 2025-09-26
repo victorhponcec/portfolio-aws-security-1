@@ -15,3 +15,8 @@ variable "az2" {
   type        = string
   default     = "us-east-1b"
 }
+
+variable "email" {
+  description = "email for sns"
+  default     = "victortest@gmail.com"
+}

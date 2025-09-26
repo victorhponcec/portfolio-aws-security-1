@@ -12,6 +12,6 @@ resource "aws_db_instance" "rds" {
   password               = "bananastest"
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.db.id]
-  db_subnet_group_name   = aws_db_subnet_group.rds_subnet.name 
+  db_subnet_group_name   = aws_db_subnet_group.rds_subnet.name
   publicly_accessible    = false
 }

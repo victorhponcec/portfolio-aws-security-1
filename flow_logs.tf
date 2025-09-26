@@ -11,6 +11,6 @@ resource "random_string" "vpc_flow_logs" {
   special = false
 }
 resource "aws_s3_bucket" "vpc_flow_logs" {
-  bucket        = "vpc-flow-logs-${random_string.vpc_flow_logs.result}" 
+  bucket        = "vpc-flow-logs-${random_string.vpc_flow_logs.result}"
   force_destroy = true
 }

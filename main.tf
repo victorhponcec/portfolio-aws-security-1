@@ -126,6 +126,8 @@ resource "aws_route_table_association" "private_d_az2" {
   route_table_id = aws_route_table.private_db_rtb.id
 }
 #to do: 
-#+Secrets manager + endpoint | add db's password secret
-#+secrets manager EC2 policy
-#+VPC Flow logs + bucket
+#+config | detective | security hub | cloudtrail
+#+inspector
+#+cloudfront
+#+waf
+#+r53
