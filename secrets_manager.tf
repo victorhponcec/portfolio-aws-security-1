@@ -1,5 +1,5 @@
 resource "aws_secretsmanager_secret" "db_password" {
-  name        = "db-password-v3"
+  name        = "db-password-v4"
   description = "Database Password"
 }
 
