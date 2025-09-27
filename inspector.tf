@@ -10,7 +10,7 @@ resource "aws_inspector2_filter" "tagged_instances" {
   filter_criteria {
     resource_tags {
       comparison = "EQUALS"
-       key        = "aws:autoscaling:groupName"
+      key        = "aws:autoscaling:groupName"
       value      = "ASG1"
     }
   }

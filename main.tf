@@ -126,8 +126,6 @@ resource "aws_route_table_association" "private_d_az2" {
   route_table_id = aws_route_table.private_db_rtb.id
 }
 #to do: 
-#+config | detective | security hub | cloudtrail
-#+inspector
 #+cloudfront
 #+waf
 #+r53
