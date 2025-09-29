@@ -6,7 +6,7 @@ resource "aws_inspector2_enabler" "enable_ec2" {
 
 resource "aws_inspector2_filter" "tagged_instances" {
   name   = "asg-inspector-filter"
-  action = "SUPPRESS" //SUPPRESS / NONE
+  action = "NONE" //SUPPRESS / NONE
   filter_criteria {
     resource_tags {
       comparison = "EQUALS"

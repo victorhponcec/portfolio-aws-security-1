@@ -12,20 +12,7 @@ resource "aws_lb_target_group" "tg_a" {
   protocol = "HTTP"
   vpc_id   = aws_vpc.main.id
 }
-/*resource "aws_lb_listener" "lba_listner" {
-  load_balancer_arn = aws_lb.lba.arn
-  port              = 80
-  protocol          = "HTTP"
-  default_action {
-    type = "forward"
-    forward {
-      target_group {
-        arn    = aws_lb_target_group.tg_a.arn
-        weight = 100
-      }
-    }
-  }
-} */
+
 resource "aws_lb_listener" "lba_https" {
   load_balancer_arn = aws_lb.lba.arn
   port              = 443

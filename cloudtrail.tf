@@ -1,4 +1,3 @@
-#Create a trail
 resource "aws_cloudtrail" "main_trail" {
   depends_on = [aws_s3_bucket_policy.main_trail]
 
@@ -58,7 +57,7 @@ data "aws_iam_policy_document" "main_trail" {
     }
     condition {
       test     = "StringEquals"
-      variable = "aws:SourceArn" #check if new aws provider version broke something: data.aws_region.current.name --> data.aws_region.current.id
+      variable = "aws:SourceArn"
       values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:trail/main_trail"]
     }
   }
@@ -72,9 +71,3 @@ resource "aws_s3_bucket_policy" "main_trail" {
 data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 data "aws_region" "current" {}
-
-/*
-===========check trails===============
-//check in console /to do
-$ aws cloudtrail lookup-events --max-items 10
-*/

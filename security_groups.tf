@@ -94,14 +94,7 @@ resource "aws_vpc_security_group_ingress_rule" "app_allow_80" {
   from_port                    = 80
   to_port                      = 80
   ip_protocol                  = "tcp"
-} /*
-resource "aws_vpc_security_group_ingress_rule" "app_allow_3306" {
-  security_group_id            = aws_security_group.app.id
-  referenced_security_group_id = aws_security_group.db.id
-  from_port                    = 3306
-  to_port                      = 3306
-  ip_protocol                  = "tcp"
-}*/
+}
 #break glass
 resource "aws_vpc_security_group_ingress_rule" "app_bg_allow_22" {
   security_group_id            = aws_security_group.app.id

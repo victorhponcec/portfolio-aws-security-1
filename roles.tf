@@ -1,4 +1,4 @@
-#Enable SSM on EC2 (pass IAM ROLE AmazonSSMManagedInstanceCore to EC2)
+#Enable SSM on EC2
 resource "aws_iam_role" "ssm_role" {
   name = "ssm_role"
   assume_role_policy = jsonencode({

@@ -1,6 +1,6 @@
 # ACM for ALB 
 resource "aws_acm_certificate" "alb_cert" {
-  domain_name       = "victorponce.site"
+  domain_name       = var.domain
   validation_method = "DNS"
 }
 
@@ -34,7 +34,7 @@ provider "aws" {
 
 resource "aws_acm_certificate" "cf_cert" {
   provider          = aws.use1
-  domain_name       = "victorponce.site"
+  domain_name       = var.domain
   validation_method = "DNS"
 }
 

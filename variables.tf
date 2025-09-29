@@ -25,3 +25,8 @@ variable "on-prem-vpn" {
   description = "on-premise vpn range"
   default     = "0.0.0.0/0"
 }
+
+variable "domain" {
+  description = "main domain"
+  default     = "victorponce.site"
+}

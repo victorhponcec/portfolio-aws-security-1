@@ -1,7 +1,7 @@
 resource "aws_wafv2_web_acl" "cf_waf" {
   name        = "cf-waf"
   description = "WAF for CloudFront"
-  scope       = "CLOUDFRONT" # Must be CLOUDFRONT for CloudFront distributions
+  scope       = "CLOUDFRONT"
   default_action {
     allow {}
   }

@@ -7,7 +7,6 @@ resource "aws_instance" "break_glass" {
   key_name                    = aws_key_pair.ec2_key.key_name
 }
 
-#SSH/PEM Config
 resource "tls_private_key" "pkey" {
   algorithm = "RSA"
   rsa_bits  = 4096

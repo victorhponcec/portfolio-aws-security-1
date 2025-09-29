@@ -117,14 +117,6 @@ resource "aws_route_table_association" "public_b_az2" {
   subnet_id      = aws_subnet.public_b_az2.id
   route_table_id = aws_route_table.public_rtb.id
 }
-/*resource "aws_route_table_association" "public_c_az1" {
-  subnet_id      = aws_subnet.public_c_az1.id
-  route_table_id = aws_route_table.public_rtb.id
-}
-resource "aws_route_table_association" "public_d_az2" {
-  subnet_id      = aws_subnet.public_d_az2.id
-  route_table_id = aws_route_table.public_rtb.id
-}*/
 resource "aws_route_table_association" "private_a_az1" {
   subnet_id      = aws_subnet.private_a_az1.id
   route_table_id = aws_route_table.private_nat_rtb.id
@@ -150,7 +142,5 @@ resource "aws_route_table_association" "private_d_az2" {
   route_table_id = aws_route_table.private_db_rtb.id
 }
 #to do: 
-#+move web tier to private subnets
-#+break glass ec2
-#+SGs modification to allow break glass
-#+guardduty + cloudwatch event + SNS notification
+#+replace variables
+#+clean code

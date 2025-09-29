@@ -1,5 +1,4 @@
 
-/************** Disable/Enable AWS Config START ******************/
 resource "random_string" "bucket_config" {
   length  = 10
   upper   = false
@@ -65,4 +64,3 @@ resource "aws_config_configuration_recorder_status" "aws_config" {
   is_enabled = true
   depends_on = [aws_config_delivery_channel.aws_config]
 }
-/************** Disable/Enable AWS Config END ******************/

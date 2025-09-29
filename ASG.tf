@@ -3,7 +3,6 @@ resource "aws_launch_template" "web" {
   name_prefix   = "web"
   image_id      = "ami-05576a079321f21f8"
   instance_type = "t2.micro"
-  #vpc_security_group_ids = [aws_security_group.web.id] #conficts with: network_interfaces.security_group
   network_interfaces {
     associate_public_ip_address = false
     security_groups             = [aws_security_group.web.id]
@@ -11,7 +10,7 @@ resource "aws_launch_template" "web" {
   iam_instance_profile {
     name = aws_iam_instance_profile.ssm_profile.name
   }
-  user_data = filebase64("user_data.sh")
+  user_data = filebase64("${path.module}/scripts/user_data.sh")
 }
 
 resource "aws_autoscaling_group" "asg_1" {
@@ -21,7 +20,7 @@ resource "aws_autoscaling_group" "asg_1" {
   min_size             = 2
   health_check_type    = "EC2"
   termination_policies = ["OldestInstance"]
-  vpc_zone_identifier  = [aws_subnet.private_e_az1.id,aws_subnet.private_f_az2.id]
+  vpc_zone_identifier  = [aws_subnet.private_e_az1.id, aws_subnet.private_f_az2.id]
 
   launch_template {
     id      = aws_launch_template.web.id
@@ -46,7 +45,7 @@ resource "aws_cloudwatch_metric_alarm" "scale_out" {
   alarm_description   = "CPU Utilization"
   alarm_actions       = [aws_autoscaling_policy.scale_out.arn]
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  namespace           = "AWS/EC2"        
+  namespace           = "AWS/EC2"
   metric_name         = "CPUUtilization"
   threshold           = "70"
   evaluation_periods  = "2"
@@ -69,7 +68,7 @@ resource "aws_launch_template" "app" {
   iam_instance_profile {
     name = aws_iam_instance_profile.ssm_secrets_manager_profile.name
   }
-  user_data = filebase64("user_data.sh")
+  user_data = filebase64("${path.module}/scripts/user_data.sh")
 }
 
 resource "aws_autoscaling_group" "asg_2" {
@@ -114,11 +113,3 @@ resource "aws_cloudwatch_metric_alarm" "asg2_scale_out" {
     AutoScalingGroupName = aws_autoscaling_group.asg_2.name
   }
 }
-
-/*
- Stress Test EC2 instances:
-  sudo amazon-linux-extras install epel -y
-  sudo yum install stress -y
-  sudo stress --cpu 8 --timeout 5800 &
-  sudo killall stress
-*/
