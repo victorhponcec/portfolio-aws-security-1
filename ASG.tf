@@ -5,8 +5,8 @@ resource "aws_launch_template" "web" {
   instance_type = "t2.micro"
   #vpc_security_group_ids = [aws_security_group.web.id] #conficts with: network_interfaces.security_group
   network_interfaces {
-    associate_public_ip_address = true
-    security_groups             = [aws_security_group.web.id] #When a network interface is provided, the security groups must be a part of it
+    associate_public_ip_address = false
+    security_groups             = [aws_security_group.web.id]
   }
   iam_instance_profile {
     name = aws_iam_instance_profile.ssm_profile.name
@@ -21,7 +21,7 @@ resource "aws_autoscaling_group" "asg_1" {
   min_size             = 2
   health_check_type    = "EC2"
   termination_policies = ["OldestInstance"]
-  vpc_zone_identifier  = [aws_subnet.public_a_az1.id, aws_subnet.public_b_az2.id]
+  vpc_zone_identifier  = [aws_subnet.private_e_az1.id,aws_subnet.private_f_az2.id]
 
   launch_template {
     id      = aws_launch_template.web.id
@@ -46,8 +46,8 @@ resource "aws_cloudwatch_metric_alarm" "scale_out" {
   alarm_description   = "CPU Utilization"
   alarm_actions       = [aws_autoscaling_policy.scale_out.arn]
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  namespace           = "AWS/EC2"        #for cloudwatch to monitor EC2 https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/aws-services-cloudwatch-metrics.html
-  metric_name         = "CPUUtilization" # metrics for EC2: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/viewing_metrics_with_cloudwatch.html 
+  namespace           = "AWS/EC2"        
+  metric_name         = "CPUUtilization"
   threshold           = "70"
   evaluation_periods  = "2"
   period              = "30"
@@ -62,7 +62,6 @@ resource "aws_launch_template" "app" {
   name_prefix   = "app"
   image_id      = "ami-05576a079321f21f8"
   instance_type = "t2.micro"
-  #vpc_security_group_ids = [aws_security_group.web.id] #conficts with: network_interfaces.security_group
   network_interfaces {
     associate_public_ip_address = false
     security_groups             = [aws_security_group.app.id]

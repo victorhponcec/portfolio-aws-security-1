@@ -1,7 +1,7 @@
 resource "aws_cloudfront_distribution" "cf_dist" {
   enabled             = true
   default_root_object = "index.html"
-  web_acl_id = aws_wafv2_web_acl.cf_waf.arn
+  web_acl_id          = aws_wafv2_web_acl.cf_waf.arn
 
   origin {
     domain_name = aws_lb.lba.dns_name

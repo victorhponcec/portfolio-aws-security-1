@@ -72,3 +72,31 @@ resource "aws_iam_instance_profile" "ssm_secrets_manager_profile" {
   name = "SSMInstanceProfile-app"
   role = aws_iam_role.ssm_secrets_manager_role.name
 }
+
+#Role for EventBridge: Allow EB to public SNS topics
+resource "aws_iam_role" "eventbridge_to_sns" {
+  name = "eventbridge_guardduty_sns_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect = "Allow",
+      Principal = {
+        Service = "events.amazonaws.com"
+      },
+      Action = "sts:AssumeRole"
+    }]
+  })
+}
+
+resource "aws_iam_role_policy" "allow_publish_to_sns" {
+  name = "allow-publish-to-sns"
+  role = aws_iam_role.eventbridge_to_sns.id
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect   = "Allow",
+      Action   = "sns:Publish",
+      Resource = aws_sns_topic.sns_guardduty_finding.arn
+    }]
+  })
+}

@@ -27,6 +27,14 @@ resource "aws_vpc_security_group_ingress_rule" "web_app_allow_443" {
   to_port                      = 443
   ip_protocol                  = "tcp"
 }
+#break glass
+resource "aws_vpc_security_group_ingress_rule" "web_bg_allow_22" {
+  security_group_id            = aws_security_group.web.id
+  referenced_security_group_id = aws_security_group.break_glass.id
+  from_port                    = 443
+  to_port                      = 443
+  ip_protocol                  = "tcp"
+}
 resource "aws_vpc_security_group_egress_rule" "web_egress_all" {
   security_group_id = aws_security_group.web.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -52,6 +60,14 @@ resource "aws_vpc_security_group_ingress_rule" "lba_allow_80" {
   from_port         = 80
   to_port           = 80
   ip_protocol       = "tcp"
+}
+#break glass
+resource "aws_vpc_security_group_ingress_rule" "lba_bg_allow_22" {
+  security_group_id            = aws_security_group.lba.id
+  referenced_security_group_id = aws_security_group.break_glass.id
+  from_port                    = 443
+  to_port                      = 443
+  ip_protocol                  = "tcp"
 }
 resource "aws_vpc_security_group_egress_rule" "lba_egress_all" {
   security_group_id = aws_security_group.lba.id
@@ -86,6 +102,14 @@ resource "aws_vpc_security_group_ingress_rule" "app_allow_3306" {
   to_port                      = 3306
   ip_protocol                  = "tcp"
 }*/
+#break glass
+resource "aws_vpc_security_group_ingress_rule" "app_bg_allow_22" {
+  security_group_id            = aws_security_group.app.id
+  referenced_security_group_id = aws_security_group.break_glass.id
+  from_port                    = 443
+  to_port                      = 443
+  ip_protocol                  = "tcp"
+}
 resource "aws_vpc_security_group_egress_rule" "app_egress_all" {
   security_group_id = aws_security_group.app.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -112,6 +136,14 @@ resource "aws_vpc_security_group_ingress_rule" "lbb_allow_80" {
   to_port                      = 80
   ip_protocol                  = "tcp"
 }
+#break glass
+resource "aws_vpc_security_group_ingress_rule" "lbb_bg_allow_22" {
+  security_group_id            = aws_security_group.lbb.id
+  referenced_security_group_id = aws_security_group.break_glass.id
+  from_port                    = 443
+  to_port                      = 443
+  ip_protocol                  = "tcp"
+}
 resource "aws_vpc_security_group_egress_rule" "lbb_egress_all" {
   security_group_id = aws_security_group.lbb.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -127,6 +159,14 @@ resource "aws_security_group" "db" {
 resource "aws_vpc_security_group_ingress_rule" "db_allow_3306" {
   security_group_id            = aws_security_group.db.id
   referenced_security_group_id = aws_security_group.app.id
+  from_port                    = 3306
+  to_port                      = 3306
+  ip_protocol                  = "tcp"
+}
+#break glass
+resource "aws_vpc_security_group_ingress_rule" "db_bg_allow_3306" {
+  security_group_id            = aws_security_group.db.id
+  referenced_security_group_id = aws_security_group.break_glass.id
   from_port                    = 3306
   to_port                      = 3306
   ip_protocol                  = "tcp"
@@ -152,6 +192,14 @@ resource "aws_vpc_security_group_ingress_rule" "ssm_web_allow_443" {
   to_port                      = 443
   ip_protocol                  = "tcp"
 }
+#break glass
+resource "aws_vpc_security_group_ingress_rule" "ssm_bg_allow_443" {
+  security_group_id            = aws_security_group.ssm.id
+  referenced_security_group_id = aws_security_group.break_glass.id
+  from_port                    = 443
+  to_port                      = 443
+  ip_protocol                  = "tcp"
+}
 resource "aws_vpc_security_group_egress_rule" "ssm_egress_all" {
   security_group_id = aws_security_group.ssm.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -171,8 +219,35 @@ resource "aws_vpc_security_group_ingress_rule" "secrets_manager_app_allow_443" {
   to_port                      = 443
   ip_protocol                  = "tcp"
 }
+#break glass
+resource "aws_vpc_security_group_ingress_rule" "secrets_manager_bg_allow_443" {
+  security_group_id            = aws_security_group.secrets_manager.id
+  referenced_security_group_id = aws_security_group.break_glass.id
+  from_port                    = 443
+  to_port                      = 443
+  ip_protocol                  = "tcp"
+}
 resource "aws_vpc_security_group_egress_rule" "secrets_manager_egress_all" {
   security_group_id = aws_security_group.secrets_manager.id
   cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1"
+}
+
+#SG Break Glass
+resource "aws_security_group" "break_glass" {
+  name        = "ssh"
+  description = "allow SSH break glass server"
+  vpc_id      = aws_vpc.main.id
+}
+resource "aws_vpc_security_group_ingress_rule" "break_glass_allow_ssh" {
+  security_group_id = aws_security_group.break_glass.id
+  cidr_ipv4         = var.on-prem-vpn
+  from_port         = 22
+  to_port           = 22
+  ip_protocol       = "tcp"
+}
+resource "aws_vpc_security_group_egress_rule" "break_glass_egress_ssh_all" {
+  security_group_id = aws_security_group.break_glass.id
+  cidr_ipv4         = var.on-prem-vpn
   ip_protocol       = "-1"
 }

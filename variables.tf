@@ -20,3 +20,8 @@ variable "email" {
   description = "email for sns"
   default     = "victortest@gmail.com"
 }
+
+variable "on-prem-vpn" {
+  description = "on-premise vpn range"
+  default     = "0.0.0.0/0"
+}
