@@ -142,5 +142,9 @@ resource "aws_route_table_association" "private_d_az2" {
   route_table_id = aws_route_table.private_db_rtb.id
 }
 #to do: 
-#+replace variables
-#+clean code
+#+modify SG ALB to only allow 443 from cloudfront
+#+adjusted break-glass rules accross SGs
+
+#to do later:
+#+secrets manager secret rotation with lambda
+#+ALB internet facing: headers allow cloudfront only
