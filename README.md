@@ -65,7 +65,7 @@ The Web tier has direct communication to the Internet-facing Application Load Ba
 | web                 | Ingress   | SG: app               | TCP      | 443     | Allow HTTPS from App tier                              |
 | web                 | Ingress   | SG: break_glass       | TCP      | 22      | Allow                                                  |
 | web                 | Egress    | 0.0.0.0/0             | ALL      | ALL     | Allow all outbound                                     |
-| **lba**             | Ingress   | 0.0.0.0/0             | TCP      | 80, 443 | Allow public HTTP/HTTPS                                |
+| **lba**             | Ingress   | com.amazonaws.global.cloudfront.origin-facing             | TCP      | 443     | AWS-managed prefix list for Amazon CloudFront    |
 | lba                 | Egress    | 0.0.0.0/0             | ALL      | ALL     | Allow all outbound                                     |
 | **app**             | Ingress   | SG: web               | TCP      | 80, 443 | Allow HTTP/HTTPS from Web tier                         |
 | app                 | Ingress   | SG: break_glass       | TCP      | 22      | Allow                                                  |
