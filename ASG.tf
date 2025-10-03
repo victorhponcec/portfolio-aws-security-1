@@ -105,8 +105,8 @@ resource "aws_cloudwatch_metric_alarm" "asg2_scale_out" {
   comparison_operator = "GreaterThanOrEqualToThreshold"
   namespace           = "AWS/EC2"
   metric_name         = "CPUUtilization"
-  threshold           = "70"
-  evaluation_periods  = "2"
+  threshold           = "60"
+  evaluation_periods  = "3"
   period              = "30"
   statistic           = "Average"
   dimensions = {
