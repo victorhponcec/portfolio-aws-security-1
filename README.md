@@ -15,6 +15,7 @@ The base solution consists of a 3-tier application (web, app, database) with str
 ![Overview Diagram](README/diagramv3.png)
 <p><em>(img. 1 – Architecture Diagram)</em></p>
 </div>
+
 ## 3. Infrastructure
 
 The core infrastructure where the main security solutions will revolve around consists of a 3-tier architecture: Web tier, App tier and Database Tier. Each tier has strict security rules to control traffic flowing to and between them. Below is the detail of the components deployed per tier. 
@@ -64,7 +65,7 @@ There’s an RDS database with MySQL in the Web tier, with synchronous replicati
 
 ## 4. Workflow
 
-Users access the App through a public domain configured in Route 53 which goes to a CloudFront distribution to serve the requests at edge. Additionally CloudFront is protected by WAF ACLs. An Internet facing Application Load Balancer is CloudFront’s origin and receives all non-cached requests which are equally distributed to the Web tier (Auto Scaling Group). The App tier processes the App’s requests and reads/writes to the DB.
+Users access the App through a public domain configured in Route 53 which goes to a CloudFront distribution to serve the requests at edge. Additionally CloudFront is protected by WAF ACLs. An Internet facing Application Load Balancer is CloudFront’s origin and receives all non-cached requests which are equally distributed to the Web tier (Auto Scaling Group). The App tier processes the Web’s requests and reads/writes to the DB.
 
 ## 5. Network Security
 
@@ -112,7 +113,7 @@ A CloudFront distribution caches the Web, avoiding having direct communication b
 | 1        | AWSManagedRulesCommonRuleSet          | Managed Rule Group | Default                       | Baseline protections against common threats |
 | 2        | RateLimitPerIP                        | Rate-Based Rule    | Block                         | Blocks IPs exceeding 800 requests in 5 minutes (DDoS/brute-force protection)          |
 | 3        | AWSManagedRulesSQLiRuleSet            | Managed Rule Group | Default                       | Detects SQL injection attempts                                                        |
-| 4        | AWSManagedRulesAmazonIpReputationList | Managed Rule Group | Default                       | Detects/block requests from known malicious IPs (AWS threat intel feed)               |
+| 4        | AWSManagedRulesAmazonIpReputationList | Managed Rule Group | Default                       | Detects/block requests from known malicious IPs (AWS threat intelligence)               |
 <p><em>(Table 5 – WAF rules)</em></p>
 </div>
 
@@ -166,7 +167,7 @@ I designed this solution using the [AWS Well-Architected Framework](https://docs
 <p><em>(img. 2 – AWS Well-Architected Framework Pillars)</em></p>
 </div>
 
-In the following table I mapped how each service and architectural decision of this solution fits into each pillar:
+In the following table I mapped how each service and architectural decision of this solution fits into each pillar (Sustainability pillar not shown):
 
 <div align="center">
 
@@ -181,3 +182,6 @@ In the following table I mapped how each service and architectural decision of t
 <p><em>(Table 6 – AWS Well-Achitected Framework Implementation)</em></p>
 </div>                                                   
 
+## 10. Conclusion
+
+This project demonstrates a well-architected, defense-in-depth security design for a 3-tier application on AWS, implemented fully with Terraform. By integrating network segmentation, least privilege IAM, secrets management, logging, anomaly detection, and edge protection, the architecture is resilient, secure, and aligned with AWS best practices.
