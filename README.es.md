@@ -1,6 +1,7 @@
 # Portafolio de Seguridad AWS: Asegurando una Arquitectura de 3 Capas
 **Autor:** Victor Ponce | **Contacto:** [Linkedin](https://www.linkedin.com/in/victorhugoponce)
 
+English Version: [README.md](https://github.com/victorhponcec/portfolio-aws-security-1/blob/main/README.md)
 
 ## 1. Resumen
 

@@ -1,6 +1,8 @@
 # Project: Securing a 3-tier application
 **Author:** Victor Ponce | **Contact:** [Linkedin](https://www.linkedin.com/in/victorhugoponce)
 
+Spanish Version: [README.es.md](https://github.com/victorhponcec/portfolio-aws-security-1/blob/main/README.es.md)
+
 ## 1. Overview
 
 This project demonstrates a secure, production-ready AWS architecture built with Terraform.
