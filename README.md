@@ -149,7 +149,7 @@ AWS Secrets Manager is used to store the DB credentials which will be used by th
 
 **Amazon Inspector:** Will scan our EC2 instances (from our two Auto Scaling Groups in the Web/App tiers) for known vulnerabilities. 
 
-**Amazon Detective:** Is a threat detection service that detects malicious behavior & anomalies.
+**Amazon Detective:** A forensic investigation and analysis service that helps us understand the context and root cause of a detected suspicious activity.
 
 ## 8. Monitoring and Response
 

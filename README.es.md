@@ -149,7 +149,7 @@ Se usa AWS Secrets Manager para guardar las credenciales de la base de datos, la
 
 **Amazon Inspector:** Escanea nuestras instancias EC2 (de nuestros dos Auto Scaling Groups en las capas Web/App) en busca de vulnerabilidades conocidas.
 
-**Amazon Detective:** Es un servicio de detección de amenazas que identifica comportamientos maliciosos y anomalías.
+**Amazon Detective:** Un servicio de investigación forense y análisis que nos ayuda a entender el contexto y la causa raíz de una actividad sospechosa detectada.
 
 ## 8. Monitoreo y Respuesta
 
